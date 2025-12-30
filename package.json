@@ -1,0 +1,16 @@
+{
+  "name": "xkbedit",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "browserify src/index.js -o public/bundle.js",
+    "dev": "browserify src/index.js -d -o public/bundle.js -w"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0"
+  }
+}
