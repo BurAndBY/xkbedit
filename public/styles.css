@@ -76,7 +76,7 @@ button:active {
 .keyboard-wrapper {
   overflow-x: auto;
   padding-bottom: 8px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .keyboard {
@@ -156,4 +156,49 @@ button:active {
   gap: 12px;
   flex-wrap: wrap;
   align-items: center;
+}
+
+
+
+
+.layer-tabs {
+  display: flex;
+  background: #1f2734;
+  padding: 4px;
+  border-radius: 99px;
+  border: 1px solid #262f3d;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.layer-tab {
+  background: transparent;
+  color: #8b9bb4;
+  font-size: 0.8rem;
+  padding: 6px 16px;
+  border-radius: 99px;
+  box-shadow: none;
+}
+
+.layer-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transform: none;
+  box-shadow: none;
+}
+
+.layer-tab--active {
+  background: #354152;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.layer-indicator {
+  font-size: 0.75rem;
+  color: #5cc4ff;
+  margin-left: auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
