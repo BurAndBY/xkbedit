@@ -163,6 +163,98 @@ const createXkbSnippet = layout => {
 };
 
 const KEY_GAP = 8;
+const DISCONTINUED_NOTICE_STORAGE_KEY = 'xkbedit-discontinued-notice-dismissed';
+
+const hasDismissedDiscontinuedNotice = () => {
+  try {
+    return window.localStorage.getItem(DISCONTINUED_NOTICE_STORAGE_KEY) === 'true';
+  } catch (error) {
+    return false;
+  }
+};
+
+const saveDiscontinuedNoticeDismissed = () => {
+  try {
+    window.localStorage.setItem(DISCONTINUED_NOTICE_STORAGE_KEY, 'true');
+  } catch (error) {
+    // Keep the old app usable even if storage is blocked.
+  }
+};
+
+const DiscontinuedAlert = ({ onDismiss }) =>
+  e(
+    'div',
+    { className: 'discontinued-modal', role: 'presentation' },
+    e(
+      'div',
+      {
+        className: 'discontinued-modal__dialog',
+        role: 'dialog',
+        'aria-modal': 'true',
+        'aria-labelledby': 'discontinued-modal-title'
+      },
+      e('h2', { id: 'discontinued-modal-title' }, 'This app is discontinued'),
+      e(
+        'p',
+        null,
+        'The new version of XKB Edit has moved to ',
+        e(
+          'a',
+          {
+            href: 'https://xkbedit.github.io/',
+            target: '_blank',
+            rel: 'noreferrer'
+          },
+          'xkbedit.github.io'
+        ),
+        '.'
+      ),
+      e(
+        'p',
+        null,
+        'You can close this popup to keep using the old version. This message will not appear again in this browser after you close it.'
+      ),
+      e(
+        'div',
+        { className: 'discontinued-modal__actions' },
+        e(
+          'a',
+          {
+            className: 'discontinued-modal__primary',
+            href: 'https://xkbedit.github.io/',
+            target: '_blank',
+            rel: 'noreferrer'
+          },
+          'Open new version'
+        ),
+        e(
+          'button',
+          {
+            type: 'button',
+            className: 'discontinued-modal__close',
+            onClick: onDismiss
+          },
+          'Continue here'
+        )
+      )
+    )
+  );
+
+const NewVersionNotice = () =>
+  e(
+    'aside',
+    { className: 'new-version-notice', role: 'status' },
+    e('strong', null, 'New version available:'),
+    e(
+      'a',
+      {
+        href: 'https://xkbedit.github.io/',
+        target: '_blank',
+        rel: 'noreferrer'
+      },
+      'Open xkbedit.github.io'
+    )
+  );
 
 const LayerSwitcher = ({ activeLayer, onChange }) => {
   return e(
@@ -264,6 +356,9 @@ const App = () => {
   const [layout, setLayout] = React.useState(() => buildInitialLayout());
   const [activeKey, setActiveKey] = React.useState(null);
   const [activeLayer, setActiveLayer] = React.useState(0); // 0..3
+  const [showDiscontinuedAlert, setShowDiscontinuedAlert] = React.useState(
+    () => !hasDismissedDiscontinuedNotice()
+  );
 
   const xkbSnippet = React.useMemo(() => createXkbSnippet(layout), [layout]);
 
@@ -324,9 +419,17 @@ const App = () => {
     setTimeout(() => URL.revokeObjectURL(url), 0);
   };
 
+  const dismissDiscontinuedAlert = () => {
+    saveDiscontinuedNoticeDismissed();
+    setShowDiscontinuedAlert(false);
+  };
+
   return e(
     'div',
     { className: 'app-shell' },
+    showDiscontinuedAlert &&
+      e(DiscontinuedAlert, { onDismiss: dismissDiscontinuedAlert }),
+    !showDiscontinuedAlert && e(NewVersionNotice),
     e(
       'header',
       { className: 'panel' },

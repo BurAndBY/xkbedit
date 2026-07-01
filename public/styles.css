@@ -25,6 +25,99 @@ body {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
 }
 
+.discontinued-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(4, 8, 14, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.discontinued-modal__dialog {
+  width: min(100%, 520px);
+  padding: 28px;
+  border: 1px solid rgba(255, 207, 102, 0.45);
+  border-radius: 18px;
+  background: #151c28;
+  color: #fff7dc;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.discontinued-modal__dialog h2 {
+  margin: 0 0 12px;
+  font-size: 1.6rem;
+  letter-spacing: 0;
+}
+
+.discontinued-modal__dialog p {
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.discontinued-modal__dialog a {
+  color: #9ee7ff;
+  font-weight: 700;
+}
+
+.discontinued-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.discontinued-modal__primary,
+.discontinued-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 700;
+}
+
+.discontinued-modal__primary {
+  background: linear-gradient(135deg, #5cc4ff, #7a5bff);
+  color: #091120 !important;
+  text-decoration: none;
+}
+
+.discontinued-modal__close {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff7dc;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+.discontinued-modal__close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+.new-version-notice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid rgba(92, 196, 255, 0.38);
+  border-radius: 12px;
+  background: rgba(92, 196, 255, 0.1);
+  color: #f7fbff;
+  text-align: center;
+}
+
+.new-version-notice a {
+  color: #9ee7ff;
+  font-weight: 700;
+}
+
 .panel h1,
 .panel h2 {
   margin: 0 0 8px;
@@ -201,4 +294,20 @@ button:active {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+@media (max-width: 640px) {
+  .discontinued-modal {
+    align-items: flex-start;
+    overflow-y: auto;
+  }
+
+  .discontinued-modal__dialog {
+    padding: 22px;
+  }
+
+  .discontinued-modal__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

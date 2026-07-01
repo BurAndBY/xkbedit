@@ -1,5 +1,7 @@
 # XKB Layout Painter
 
+> **Discontinued:** This old version is no longer maintained. The new version has moved to <https://xkbedit.github.io/>.
+
 A visual, web-based tool for designing custom XKB (X Keyboard Extension) key symbol layouts for Linux. 
 
 Instead of manually editing complex text files and looking up keysym names, simply click a key on the virtual keyboard and type the character you want it to produce.
